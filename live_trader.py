@@ -189,7 +189,22 @@ class LiveTrader:
             trade_info = self.complete_system.place_trade(continuation)
             self.save_trade(trade_info)
             self.active_trades.append(trade_info)
-            
+
+            # --- BEGIN: ENTRY SIGNAL TERMINAL LOG ---
+            self.logger.info("\n================ ENTRY SIGNAL ALERT ================")
+            self.logger.info(f"📅 Time: {trade_info['timestamp']}")
+            self.logger.info(f"📈 Symbol: {SYMBOL}")
+            self.logger.info(f"🎯 Direction: {trade_info['direction']}")
+            self.logger.info(f"💰 Entry Price: ${trade_info['entry_price']:.2f}")
+            self.logger.info(f"🛑 Stop Loss: ${trade_info['stop_loss']:.2f}")
+            self.logger.info(f"🎯 Take Profit: ${trade_info['take_profit']:.2f}")
+            self.logger.info(f"🧠 LLM Decision: {trade_info['llm_decision']['decision']} - {trade_info['llm_decision']['reason']}")
+            self.logger.info(f"📊 Bias: {trade_info['daily_bias']['predicted_bias']} - {trade_info['daily_bias']['reason']}")
+            self.logger.info(f"🔍 4H FVG: {trade_info['4h_fvg']['type']} at ${trade_info['4h_fvg']['start_price']:.2f} - ${trade_info['4h_fvg']['end_price']:.2f}")
+            self.logger.info(f"🔗 Continuation Model: {trade_info['trade_type']}")
+            self.logger.info("====================================================\n")
+            # --- END: ENTRY SIGNAL TERMINAL LOG ---
+
             self.logger.info(f"🎯 Trade executed: {trade_info['direction']} at ${trade_info['entry_price']:.2f}")
             self.logger.info(f"   Stop Loss: ${trade_info['stop_loss']:.2f}")
             self.logger.info(f"   Take Profit: ${trade_info['take_profit']:.2f}")

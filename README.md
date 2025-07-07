@@ -19,6 +19,7 @@ live_trading_system/
 ├── backup/                  # Backup files
 ├── live_trader.py          # Main live trading script
 ├── feedback_manager.py     # Feedback management tool
+├── backtest_model.py       # Backtesting runner (from this folder)
 └── README.md
 ```
 
@@ -51,12 +52,17 @@ cd live_trading_system
 python live_trader.py
 ```
 
-### 2. **Check Feedback Learning**
+### 2. **Run Backtest**
+```bash
+python backtest_model.py 12  # Backtest for 12 months
+```
+
+### 3. **Check Feedback Learning**
 ```bash
 python feedback_manager.py summary
 ```
 
-### 3. **Add Trade Feedback**
+### 4. **Add Trade Feedback**
 ```bash
 python feedback_manager.py add --date 2024-12-31 --bias Buy --llm YES --outcome profitable --reason "Strong trend continuation"
 ```
@@ -101,20 +107,46 @@ python feedback_manager.py import --file my_feedback.json
 python feedback_manager.py clear
 ```
 
-## 🔧 Configuration
+## 🔧 Configuration & API Keys
 
-### **API Keys** (`core/config.py`)
-```python
-OPENAI_API_KEY = "your-openai-key"
-POLYGON_API_KEY = "your-polygon-key"
-SYMBOL = "C:XAUUSD"  # Gold
-```
+### **API Keys**
+- **Never commit your API keys to the repository!**
+- Use environment variables or a `.env` file to store sensitive keys.
+- Example keys required:
+  - `OPENAI_API_KEY` (for LLM/feedback learning)
+  - `POLYGON_API_KEY` (for market data)
+
+#### **.env File Support**
+- You can create a `.env` file in the project root or `live_trading_system/` folder:
+  ```env
+  OPENAI_API_KEY=sk-...
+  POLYGON_API_KEY=...
+  SYMBOL=C:XAUUSD
+  ```
+- Copy or rename `core/config.example.py` to `core/config.py` and set values to use `os.environ.get()` for keys.
+- `.env` is already in `.gitignore` for your safety.
+
+#### **How to Set Environment Variables**
+- On Mac/Linux:
+  ```bash
+  export OPENAI_API_KEY=sk-...
+  export POLYGON_API_KEY=...
+  ```
+- Or use a `.env` file as above (recommended for local dev).
 
 ### **Trading Parameters**
 - **Symbol**: Gold (XAUUSD)
 - **Timeframes**: Daily, 4H, 3M
 - **Risk-Reward**: 2:1
 - **Timezone**: New York (EST)
+
+## 💸 LLM API Costs
+
+- **OpenAI/LLM Usage:**
+  - This system uses OpenAI (or other LLM) APIs for feedback learning and trade validation.
+  - **You are responsible for your own API usage and costs.**
+  - Make sure to fund your OpenAI account or any other LLM provider you use.
+  - The system will not work without a valid API key and sufficient balance.
 
 ## 📊 Monitoring
 
@@ -147,6 +179,7 @@ SYMBOL = "C:XAUUSD"  # Gold
 3. **Add Feedback**: Regularly add trade outcomes
 4. **Backup Data**: Export feedback regularly
 5. **Update APIs**: Keep API keys current
+6. **Never share your API keys publicly!**
 
 ## 🔄 Workflow Details
 
@@ -184,7 +217,7 @@ SYMBOL = "C:XAUUSD"  # Gold
 
 ### **Debugging**
 - Check logs in `logs/` directory
-- Verify API keys in `core/config.py`
+- Verify API keys in `core/config.py` or your `.env` file
 - Test individual components separately
 
 ## 🎉 Success Metrics
