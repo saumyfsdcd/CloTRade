@@ -1,0 +1,83 @@
+# API Keys and Configuration
+core/config.py
+config.py
+.env
+*.env
+
+# Data files
+data/trade_history.json
+data/feedback_history.json
+*.csv
+*.json
+!requirements.txt
+!package.json
+
+# Logs
+logs/
+*.log
+
+# Backup files
+backup/
+*.backup
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Documentation
+docs/_build/
+
+# Temporary files
+*.tmp
+*.temp 
